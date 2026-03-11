@@ -1,14 +1,9 @@
-name: ci exercice
+name: CI EXERCICE
 on:
   push:
     branches: [main, dev]
-  paths:
-    - "backend/**"
-    - "shared/**"
   pull_request:
     branches: [dev, main]
-  schedule:
-    - cron: "0 2 * * *"
 permissions:
   contents: read
   pull-requests: write
@@ -22,8 +17,12 @@ concurrency:
   group: deploy-production
   cancel-in-progress: false
 
-env:
-  NODE_VERSION: "20"
-  REGISTRY: ghcr.io
-
-
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v4
+  test:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/setup-node@v4
